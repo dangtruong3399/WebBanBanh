@@ -1,0 +1,21 @@
+﻿
+@model IEnumerable<WebBanBanh.Models.SANPHAM>
+
+
+
+
+@foreach (var item in Model.Take(8))
+{
+    <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+            <div class="cake_img">
+                <img src="@Url.Content("~/Content/HinhAnhSP/"+item.HINHANH)" style="width:200px;height:200px;" />
+            </div>
+            <div class="cake_text">
+                <h4>$ @item.DONGIA.Value.ToString("#,##") </h4>
+                <h3>@item.TENSP</h3>
+                <a class="pest_btn" href="@Url.Action("XemChiTiet", "SanPham", new {id=item.MASP })">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+}

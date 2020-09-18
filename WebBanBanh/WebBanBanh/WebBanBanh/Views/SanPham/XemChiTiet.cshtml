@@ -1,0 +1,53 @@
+﻿@using WebBanBanh.Models
+@model SANPHAM
+@{
+    ViewBag.Title = "XemChiTiet";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+
+<div class="row product_d_price">
+    <div class="col-lg-6">
+        <div class="product_img">
+            <img class="img-fluid" src="@Url.Content("~/Content/HinhAnhSP/" + Model.HINHANH)" alt="" />
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="product_details_text">
+            <h4>@Model.TENSP</h4>
+            <div class="review">
+                <a href="#">Lượt xem: @Model.LUOTXEM</a>
+            </div>
+            <p>@Html.Raw(Model.NGUYENLIEUBANH)</p>
+            <h5>Giá :<span>@Model.DONGIA.Value.ToString("#,##") $</span></h5>
+            @*<div class="quantity_box">
+                    <label for="quantity">Quantity :</label>
+                    <input type="text" placeholder="1" id="quantity">
+                </div>*@
+            <a class="pink_more" href="@Url.Action("ThemGioHang", "GioHang", new { @MaSP = Model.MASP, @strURL = Request.Url.ToString() })">Giỏ hàng</a>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <a href="@Url.Action("Index", "Home")" class="pink_more">Mua tiếp</a>
+
+        </div>
+
+    </div>
+    <h2 style="font-size: 30px; color: black">Thông tin sản phẩm:</h2>
+    <br />
+    @Html.Raw(Model.MOTA)
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

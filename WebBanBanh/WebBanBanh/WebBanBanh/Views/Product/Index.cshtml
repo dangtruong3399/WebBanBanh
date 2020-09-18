@@ -1,0 +1,1083 @@
+﻿@using WebBanBanh.Models;
+
+@{
+    Layout = null;
+    var loaiSP = (List<LOAISANPHAM>)ViewBag.LoaiSP;
+    var NSX = (List<NHASANXUAT>)ViewBag.NhaSX;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Matrix Admin</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/">
+        @*<link rel="stylesheet" href="~/sourceAdmin/css/bootstrap.min.css" />*@
+        <link href="~/sourceAdmin/bootrrap/bootstrap.min.css" rel="stylesheet" />
+        @*<link rel="stylesheet" href="~/sourceAdmin/css/bootstrap-responsive.min.css" />*@
+        <link rel="stylesheet" href="~/sourceAdmin/css/uniform.css" />
+        @*<link rel="stylesheet" href="~/sourceAdmin/css/select2.css" />*@
+        <link rel="stylesheet" href="~/sourceAdmin/css/matrix-style.css" />
+        <link rel="stylesheet" href="~/sourceAdmin/css/matrix-media.css" />
+        <link href="~/sourceAdmin/fontawesome/css/font-awesome.css" rel="stylesheet" />
+
+        <link href="~/sourceAdmin/css/fontgg.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!--Header-part-->
+    <div id="header">
+        <h1><a href="dashboard.html">Matrix Admin</a></h1>
+    </div>
+    <!--close-Header-part-->
+    <!--top-Header-menu-->
+    <div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav">
+            <li class="dropdown" id="profile-messages">
+                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome User</span><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="Admin/IndexProfile"><i class="icon-user"></i> My Profile</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="Admin/postLogDangNhap"><i class="icon-key"></i> Log Out</a></li>
+                </ul>
+
+            </li>
+            <li><a href="Admin/postLogDangNhap"><i class="icon-key"></i> Log Out</a></li>
+        </ul>
+    </div>
+    <!--close-top-Header-menu-->
+    <!--sidebar-menu-->
+    <div id="sidebar">
+        <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+        <ul>
+            <li class="active"><a href="Admin/Index"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+            <li> <a href="Admin/IndexChart"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
+            <li class=" submenu">
+                <a href="#"><i class="icon icon-th"></i> <span>Tables</span></a>
+                <ul>
+                    <li><a href="Product/Index">Product Table</a></li>
+                    <li><a href="KhachHang/Index">User Customer Table</a></li>
+                    <li><a href="DonDatHang/Index">Order  Table</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="#"><i class="icon icon-fullscreen"></i>FORM</a>
+                <ul>
+                    <li><a href="EditAbout/Index">EDIT FORM ABOUT</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="admin/home/dashboard"><i class="icon icon-th-list"></i></a>
+                <ul>
+                    <li><a href="admin/home/dashboard"></a></li>
+                </ul>
+            </li>
+            <li><a href="admin/home/dashboard"><i class="icon icon-tint"></i></a></li>
+            <li><a href="admin/home/dashboard"><i class="icon icon-pencil"></i> <span></span></a></li>
+            <li class="submenu">
+                <a href="admin/home/dashboard"><i class="icon icon-file"></i> </a>
+                <ul>
+                    <li><a href="admin/home/dashboard"></a></li>
+                    <li><a href="admin/home/dashboard"></a></li>
+                    <li><a href="admin/home/dashboard"></a></li>
+                    <li><a href="admin/home/dashboard"></a></li>
+                    <li><a href="admin/home/dashboard"></a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="admin/home/dashboard"><i class="icon icon-info-sign"></i> </a>
+                <ul>
+                    <li><a href="admin/home/dashboard">Error 403</a></li>
+                    <li><a href="admin/home/dashboard">Error 404</a></li>
+                    <li><a href="admin/home/dashboard">Error 405</a></li>
+                    <li><a href="admin/home/dashboard">Error 500</a></li>
+                </ul>
+            </li>
+            <li class="content">
+                <span>Monthly Bandwidth Transfer</span>
+                <div class="progress progress-mini progress-danger active progress-striped">
+                    <div style="width: 77%;" class="bar"></div>
+                </div>
+                <span class="percent">77%</span>
+                <div class="stat">21419.94 / 14000 MB</div>
+            </li>
+            <li class="content">
+                <span>Disk Space Usage</span>
+                <div class="progress progress-mini active progress-striped">
+                    <div style="width: 87%;" class="bar"></div>
+                </div>
+                <span class="percent">87%</span>
+                <div class="stat">604.44 / 4000 MB</div>
+            </li>
+        </ul>
+    </div>
+    <!--sidebar-menu-->
+    <!--main-container-part-->
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="Admin/Index" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="Admin/Index">Tables</a><a href="Product/Index" class="current">Product Table</a> </div>
+
+        </div>
+        <div class="container-fluid">
+            <hr>
+            <div class="row-fluid">
+                <div class="span12">
+                    <h1>Table Made Product</h1>
+                    @*add made product*@
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#scrollNSX">
+                        Create Made Product
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="scrollNSX" tabindex="-1" role="dialog" aria-labelledby="scrollNSXTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="scrollNSXTitle">Add Made Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    @using (Html.BeginForm("CreateNSX", "Product"))
+                                    {
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Tên Nhà Sản Xuất :</label>
+                                            <div class="controls">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="TENNSX" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Thông Tin :</label>
+                                            <div class="controls">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="THONGTIN" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">LOGO :</label>
+                                            <div class="controls" style="margin-top:10px;">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="LOGO" />
+                                            </div>
+                                        </div>
+                                        <div class="form-actions" style="margin-top:50px">
+                                            <button type="submit" class="btn btn-success">Save</button>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Data made custom table</h5>
+                        </div>
+                        @*START MODAL SHOW EDIT DELETE*@
+                        <div class="modal fade" id="scrollNSXHIDE" tabindex="-1" role="dialog" aria-labelledby="scrollNSXTitleHIDE" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="scrollNSXTitleHIDE">Add Made Product</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @using (Html.BeginForm("EditNSX1", "Product"))
+                                        {
+
+                                            <div class="control-group">
+                                                <label class="control-label">Id Nhà Sản Xuất :</label>
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11  classnsx" readonly id="IDNSX" name="IDNSX" />
+                                                <div class="controls">
+
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">Tên Nhà Sản Xuất :</label>
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="TENNSX" id="TENNSX" />
+                                                <div class="controls">
+
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">Thông Tin :</label>
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="THONGTIN" id="THONGTIN" />
+                                                <div class="controls">
+
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">LOGO :</label>
+
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="LOGO" id="LOGO" />
+                                                <div class="controls" style="margin-top:10px;">
+                                                </div>
+                                            </div>
+                                            <div class="form-actions">
+                                                <button type="submit" id="saveNSX" class="btn btn-success">Save</button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" onclick="activeEditNSX();">Edit</button>
+                                        <button type="button" class="btn btn-secondary" id="activeDeleteNSX" onclick="activeDeleteNSX();">Delete</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @*END MODAL SHOW EDIT DELETE*@
+                        <div class="widget-content nopadding tab tab-1">
+                            <div style="overflow-x:scroll">
+                                <table class="table table-bordered data-table" id="tableNSXshow" data-toggle="modal" data-target="#scrollNSXHIDE">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã Nhà Sản Xuất</th>
+                                            <th>Tên Nhà Sản Xuất</th>
+                                            <th>Thông Tin</th>
+                                            <th>Logo</th>
+                                            <th>EDIT</th>
+                                            <th>DELETE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var nhasx in NSX)
+                                        {
+                                            <tr class="gradeA">
+                                                <td>@nhasx.MANSX</td>
+                                                <td>@nhasx.TENNSX</td>
+                                                <td>@nhasx.THONGTIN</td>
+                                                <td><img src="@nhasx.LOGO" id="imgNSX" width="150" height="150"></td>
+                                                <td class="center">
+                                                    <a href="#">
+                                                        @using (Html.BeginForm())
+                                                        {@Html.ActionLink("EDIT ", "IndexNSXDetail", new { id = nhasx.MANSX })
+                                                    }
+                                                    </a>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="#">
+                                                        @using (Html.BeginForm())
+                                                        {@Html.ActionLink("Delete ", "DeleteNSX", new { id = nhasx.MANSX })
+                                                    }
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span12"></div>
+                    <h1>Table Type Product</h1>
+
+
+
+                    <div class="widget-box">
+                        @*add type product*@
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#scrollTYPE">
+                            Create Type Product
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="scrollTYPE" tabindex="-1" role="dialog" aria-labelledby="scrollTYPETitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="scrollTYPETitle">Add Made Product</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @using (Html.BeginForm("CreateLoaiSP", "Product"))
+                                        {
+                                            <div class="control-group">
+                                                <label class="control-label">Tên Sản Phẩm :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="tenloai" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">Icon :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="icon" />
+                                                </div>
+                                            </div>
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn btn-success">Save</button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Data type product table</h5>
+                        </div>
+                        @*START MODAL SHOW EDIT DELETE*@
+                        <!-- Button trigger modal -->
+                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#scrollNSXHIDE">
+                                Create Made Product
+                            </button>*@
+                        <div class="modal fade" id="scrollTYPEHIDE" tabindex="-1" role="dialog" aria-labelledby="scrollTYPETitleHIDE" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="scrollTYPETitleHIDE">Add Type Product</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @using (Html.BeginForm("EditLoaiSP1", "Product"))
+                                        {
+                                            <div class="control-group">
+                                                <label class="control-label">ID Loại :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" id="IDTYPE" name="IDTYPE" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:20px">
+                                                <label class="control-label">Tên Loại Sản Phẩm :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="tenloai" id="tenloai" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:20px">
+                                                <label class="control-label">Icon :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="icon" id="icon" />
+                                                </div>
+                                            </div>
+                                            <div class="form-actions" style="margin-top:50px">
+                                                <button type="submit" id="saveTYPE" class="btn btn-success">Save</button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" onclick="activeEditTYPE();">Edit</button>
+                                        <button type="button" class="btn btn-secondary" id="activeDeleteTYPE" onclick="activeDeleteTYPE();">Delete</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @*END MODAL SHOW EDIT DELETE*@
+                        <div class="widget-content nopadding">
+                            <div style="overflow-x:scroll">
+                                <table class="table table-bordered data-table" id="tableTYPEshow" data-toggle="modal" data-target="#scrollTYPEHIDE">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã Loại SP</th>
+                                            <th>Tên Loại SP</th>
+                                            <th>Icon</th>
+                                            <th>EDIT</th>
+                                            <th>DELETE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var lsp in loaiSP)
+                                        {
+                                            <tr class="gradeA">
+                                                <td>@lsp.MALOAISP</td>
+                                                <td>@lsp.TENLOAI</td>
+                                                <td><img src="@lsp.ICON" id="imgLoaiSP" width="150" height="150"></td>
+                                                <td class="center">
+                                                    <a href="#">
+                                                        @using (Html.BeginForm())
+                                                        {@Html.ActionLink("EDIT ", "IndexLoaiSpDetail", new { id = lsp.MALOAISP })
+                                                    }
+                                                    </a>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="#">
+                                                        @using (Html.BeginForm())
+                                                        {
+                                                            @Html.ActionLink("Delete ", "DeleteLoaiSP", new { id = lsp.MALOAISP })
+                                                        }
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span12"></div>
+                    <h1>Table Product</h1>
+                    @*add product*@
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#scrollPROD">
+                        Create Product
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="scrollPROD" tabindex="-1" role="dialog" aria-labelledby="scrollPRODTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalScrollableTitle">Add Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    @using (Html.BeginForm("CreateProduct", "Product"))
+                                    {
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Tên Sản Phẩm :</label>
+                                            <div class="controls" style="margin-top:20px">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="TenSP" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Giá Sản Phẩm :</label>
+                                            <div class="controls" style="margin-top:20px">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="DonGia" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Số Lượng Sản Phẩm :</label>
+                                            <div class="controls" style="margin-top:20px">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="SoLuongTon" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Hình Ảnh Sản Phẩm :</label>
+                                            <div class="controls" style="margin-top:20px">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="HinhAnh" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Mô Tả :</label>
+                                            <div class="controls" style="margin-top:20px">
+
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="MoTa" placeholder="" />
+                                            </div>
+
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Số Lượt Xem :</label>
+                                            <div class="controls">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="luotxem" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Số Lượt Bình Luận :</label>
+                                            <div class="controls">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="luotbinhluan" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Số Lượt Bình Chọn :</label>
+                                            <div class="controls">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="luotbinhchon" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group" style="margin-top:50px">
+                                            <label class="control-label">Nguyên Liệu Bánh :</label>
+                                            <div class="controls">
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="nguyenlieubanh" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="margin-top:50px">
+                                            <label class="control-label">Mã Loại Sản Phẩm  :</label>
+
+                                            <div class="form-control">
+                                                <select class="input-big span11" id="selectloaisp" style="width: 200px;z-index:1000" onchange="validateSelectBoxLoaiSP1(this)">
+                                                    @foreach (var loaisp123 in loaiSP)
+                                                    {
+                                                        <option value="@loaisp123.MALOAISP">@loaisp123.TENLOAI</option>
+                                                    }
+                                                </select>
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="MaLoaiSP" id="idloaisp1" value="" readonly />
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="margin-top:50px">
+                                            <label class="control-label">Mã Nhà Sản Xuất  :</label>
+                                            <div class="form-control">
+                                                <select style="width: 200px;z-index:1000" id="selectnsx" onchange="validateSelectBoxNSX1(this)">
+                                                    @foreach (var nsx123 in NSX)
+                                                    {
+                                                        <option value="@nsx123.MANSX">@nsx123.TENNSX</option>
+                                                    }
+                                                </select>
+                                                <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="MaNSX" value="" id="idnsx1" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="form-actions" style="margin-top:50px">
+                                            <button type="submit" class="btn btn-success">Save</button>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Data product table</h5>
+                        </div>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="scrollPRODHIDE" tabindex="-1" role="dialog" aria-labelledby="scrollPRODTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalScrollableTitle">Add Product</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        @using (Html.BeginForm("EditProduct111", "Product"))
+                                        {
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Mã Sản Phẩm :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" id="MASPPRODUCT" name="MASPw" readonly placeholder="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Tên Sản Phẩm :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" id="TenSPPRODUCT" name="TenSP" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Giá Sản Phẩm :</label>
+                                                <div class="controls">
+                                                    <input type="number" style="    border-radius: 1px" class="colorpicker input-big span11" id="DonGiaPRODUCT" name="DonGia" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Ngày Cập Nhật :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" id="NgayCapNhatPRODUCT" name="NGAYCAPNHAT" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group " style="margin-top:50px">
+                                                <label class="control-label">Số Lượng Sản Phẩm :</label>
+                                                <div class="controls">
+                                                    <input type="number" style="    border-radius: 1px" class="colorpicker input-big span11" id="SoLuongTonPRODUCT" name="SoLuongTon" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Hình Ảnh Sản Phẩm :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" id="HinhAnhPRODUCT" name="HinhAnh" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Mô Tả :</label>
+                                                <div class="controls">
+                                                    @*<textarea class="form-control"  rows="5" id="comment MoTaPRODUCT"   style="    border-radius: 1px"   name="MoTa" placeholder=""></textarea>*@
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" id="MoTaPRODUCT" name="MoTa" placeholder="" />
+                                                </div>
+
+                                            </div>
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Số Lượt Xem :</label>
+                                                <div class="controls">
+                                                    <input type="number" readonly style="    border-radius: 1px" class="colorpicker input-big span11" id="luotxemPRODUCT" name="luotxem" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Số Lượt Bình Luận :</label>
+                                                <div class="controls">
+                                                    <input type="number" readonly style="    border-radius: 1px" class="colorpicker input-big span11" id="luotbinhluanPRODUCT" name="luotbinhluan" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Số Lượt Bình Chọn :</label>
+                                                <div class="controls">
+                                                    <input type="number" readonly style="    border-radius: 1px" class="colorpicker input-big span11" id="luotbinhchonPRODUCT" name="luotbinhchon" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group" style="margin-top:50px">
+                                                <label class="control-label">Nguyên Liệu Bánh :</label>
+                                                <div class="controls">
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" id="nguyenlieubanhPRODUCT" name="nguyenlieubanh" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="margin-top:50px">
+                                                <label class="control-label">Mã Loại Sản Phẩm  :</label>
+
+                                                <div class="form-control">
+                                                    <select class="input-big span11" style="width: 200px;z-index:1000" onchange="validateSelectBoxLoaiSP2(this)">
+                                                        @foreach (var loaisp1 in loaiSP)
+                                                        {
+                                                            <option value="@loaisp1.MALOAISP">@loaisp1.TENLOAI</option>
+                                                        }
+                                                    </select>
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="MaLoaiSP" id="idloaisp2" value="" readonly />
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="margin-top:50px">
+                                                <label class="control-label">Mã Nhà Sản Xuất  :</label>
+                                                <div class="form-control">
+                                                    <select style="width: 200px;z-index:1000" onchange="validateSelectBoxNSX2(this)">
+                                                        @foreach (var nsx1 in NSX)
+                                                        {
+                                                            <option value="@nsx1.MANSX">@nsx1.TENNSX</option>
+                                                        }
+                                                    </select>
+                                                    <input type="text" style="    border-radius: 1px" class="colorpicker input-big span11" name="MaNSX" id="idnsx2" value="" readonly />
+
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-actions" style="margin-top:50px">
+                                                <button type="submit" class="btn btn-success" id="savePRODUCT">Save</button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" onclick="activeEditPRODUCT();">Edit</button>
+                                        <button type="button" class="btn btn-secondary" id="activeDeletePRODUCT" onclick="activeDeletePRODUCT();">Delete</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <div style="overflow-x:scroll">
+                                <table class="table table-bordered data-table" data-toggle="modal" data-target="#scrollPRODHIDE" id="tablePRODUCTshow">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã SP</th>
+                                            <th>Tên SP</th>
+                                            <th>Đơn Giá</th>
+                                            <th>Ngày Cập Nhật</th>
+                                            <th>Mô Tả</th>
+                                            <th>Hình Ảnh</th>
+                                            <th>Số Lượng Tồn</th>
+                                            <th>Lượt Xem </th>
+                                            <th>Lượt Bình Chọn</th>
+                                            <th>Lượt Bình Luận</th>
+                                            <th>Nguyên Liệu Bánh</th>
+                                            <th>Mã Loại Sản Phẩm</th>
+                                            <th>Mã Nhà Sản Xuất</th>
+                                            <th>EDIT</th>
+                                            <th>DELETE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="gradeA">
+                                                <td>@item.MASP</td>
+                                                <td style="width:50px;">@item.TENSP</td>
+                                                <td>@item.DONGIA</td>
+                                                <td style="width:100px;">@item.NGAYCAPNHAT</td>
+                                                <td><div style="height:100px;width:300px;  overflow: scroll;">@item.MOTA</div></td>
+                                                <td style="width:200px;"><img src="@Url.Content("~/Content/HinhAnhSP/"+ item.HINHANH)" id="imgPROD" width="150" height="150"></td>
+                                                <td style="width:100px;">@item.SOLUONGTON</td>
+                                                <td>@item.LUOTXEM </td>
+                                                <td>@item.LUOTBINHCHON</td>
+                                                <td>@item.LUOTBINHLUAN</td>
+                                                <td><div style="height:100px;width:300px;  overflow: scroll;">@item.NGUYENLIEUBANH</div></td>
+                                                <td>@item.MALOAISP</td>
+                                                <td>@item.MANSX</td>
+                                                <td class="center">
+                                                    <a href="#">
+                                                        @using (Html.BeginForm())
+                                                        {@Html.ActionLink("EDIT ", "IndexProdDetail", new { id = @item.MASP })
+                                                    }
+                                                    </a>
+                                                </td>
+                                                <td>@Html.ActionLink("DELETE", "DeleteProduct", "Product", new { @id = @item.MASP }, null)</td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!--Footer-part-->
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
+    </div>
+    <!--end-Footer-part-->
+    @*<script src="~/sourceAdmin/js/jquery.min.js"></script>*@
+    <script src="~/sourceAdmin/bootrrap/jquery.min.js"></script>
+    <script src="~/sourceAdmin/bootrrap/popper.min.js"></script>
+
+    <script src="~/sourceAdmin/js/jquery.ui.custom.js"></script>
+
+    @*<script src="~/sourceAdmin/js/bootstrap.min.js"></script>*@
+    <script src="~/sourceAdmin/bootrrap/bootstrap.min.js"></script>
+
+    <script src="~/sourceAdmin/js/jquery.uniform.js"></script>
+    @*<script src="~/sourceAdmin/js/select2.min.js"></script>*@
+    <script src="~/sourceAdmin/js/jquery.dataTables.min.js"></script>
+    <script src="~/sourceAdmin/js/matrix.js"></script>
+    <script src="~/sourceAdmin/js/matrix.tables.js"></script>
+
+
+    <script language="javascript">
+        var idnsxx = document.getElementById("selectnsx");
+        var idloai = document.getElementById("selectloaisp");
+        var strNSX = idnsxx.options[0].value;
+        var strLOAISP = idloai.options[0].value;
+        document.getElementById('idloaisp1').value = strLOAISP;
+        document.getElementById('idnsx1').value = strNSX;
+        function validateSelectBoxLoaiSP1(obj) {
+            // Lấy danh sách các options
+            var options1 = obj.children;
+
+            // Biến lưu trữ các chuyên mục đa chọn
+            var html1 = '';
+
+            // lặp qua từng option và kiểm tra thuộc tính selected
+            for (var i = 0; i < options1.length; i++) {
+                if (options1[i].selected) {
+                    html1 += options1[i].value;
+                }
+            }
+
+            // Gán kết quả vào div#result
+            document.getElementById('idloaisp1').value = html1;
+        }
+        function validateSelectBoxNSX1(obj) {
+            // Lấy danh sách các options
+            var options3 = obj.children;
+
+            // Biến lưu trữ các chuyên mục đa chọn
+            var html3 = '';
+
+            // lặp qua từng option và kiểm tra thuộc tính selected
+            for (var i = 0; i < options3.length; i++) {
+                if (options3[i].selected) {
+                    html3 += options3[i].value;
+                }
+            }
+
+            // Gán kết quả vào div#result
+            document.getElementById('idnsx1').value = html3;
+        }
+
+    </script>
+    <script language="javascript">
+
+
+        function validateSelectBoxLoaiSP2(obj) {
+            // Lấy danh sách các options
+            var options2 = obj.children;
+            // Biến lưu trữ các chuyên mục đa chọn
+            var html2 = '';
+
+            // lặp qua từng option và kiểm tra thuộc tính selected
+            for (var i = 0; i < options2.length; i++) {
+                if (options2[i].selected) {
+                    html2 += options2[i].value;
+                }
+            }
+            // Gán kết quả vào div#result
+            document.getElementById("idloaisp2").value = html2;
+        }
+
+        function validateSelectBoxNSX2(obj) {
+            // Lấy danh sách các options
+            var options4 = obj.children;
+
+            // Biến lưu trữ các chuyên mục đa chọn
+            var html4 = '';
+
+            // lặp qua từng option và kiểm tra thuộc tính selected
+            for (var i = 0; i < options4.length; i++) {
+                if (options4[i].selected) {
+                    html4 += options4[i].value;
+                }
+            }
+
+            // Gán kết quả vào div#result
+            document.getElementById("idnsx2").value = html4;
+
+        }
+    </script>
+    <script>
+        var table = document.getElementById('tableNSXshow');
+
+        document.getElementById("TENNSX").readOnly = true;
+        document.getElementById("THONGTIN").readOnly = true;
+        document.getElementById("LOGO").readOnly = true;
+        document.getElementById("saveNSX").disabled = true;
+        for (var i = 1; i < table.rows.length; i++) {
+            table.rows[i].onclick = function () {
+                //rIndex = this.rowIndex;
+                document.getElementById("IDNSX").value = this.cells[0].innerHTML;
+                document.getElementById("TENNSX").value = this.cells[1].innerHTML;
+                document.getElementById("THONGTIN").value = this.cells[2].innerHTML;
+                var chuoiIMG = this.cells[3].innerHTML;
+
+                @*<img src="@nhasx.LOGO" id="imgNSX" width="150" height="150">*@
+                    document.getElementById("LOGO").value = chuoiIMG.slice(chuoiIMG.indexOf('src="') + 5, chuoiIMG.indexOf('" id="'));
+                if (chuoiIMG.indexOf('src="') == -1 && chuoiIMG.indexOf('" id="') == -1) {
+                    document.getElementById("LOGO").value = "";
+                }
+            };
+        }
+
+        function activeDeleteNSX() {
+            //var x = document.getElementsByClassName("activeDelete")[0].id;
+            if (confirm("Xóa mã nhà sản xuất sản phẩm này đồng nghĩa với tất cả sản phẩm có mã nhà sản xuất sản phẩm này cũng bị xóa , bạn chắc chắn xóa chứ!!")) {
+                window.location.href = "/Product/DeleteNSX/" + document.getElementById("IDNSX").value;
+
+                alert("Xóa Thành Công");
+            }
+            else
+                alert("Xóa Thất Bại");
+
+        }
+        function activeEditNSX() {
+            document.getElementById("TENNSX").readOnly = false;
+            document.getElementById("THONGTIN").readOnly = false;
+            document.getElementById("LOGO").readOnly = false;
+            document.getElementById("saveNSX").disabled = false;
+            document.getElementById("activeDeleteNSX").disabled = true;
+
+        }
+    </script>
+    <script>
+        var table = document.getElementById('tableTYPEshow');
+        document.getElementById("IDTYPE").readOnly = true;
+        document.getElementById("tenloai").readOnly = true;
+        document.getElementById("icon").readOnly = true;
+        document.getElementById("saveTYPE").disabled = true;
+        for (var i = 1; i < table.rows.length; i++) {
+            table.rows[i].onclick = function () {
+                //rIndex = this.rowIndex;
+                document.getElementById("IDTYPE").value = this.cells[0].innerHTML;
+                document.getElementById("tenloai").value = this.cells[1].innerHTML;
+                //document.getElementById("icon").value = this.cells[2].innerHTML;
+                var chuoiIMG = this.cells[2].innerHTML;
+
+                @* <img src="@nhasx.LOGO" id="imgNSX" width="150" height="150">*@
+                document.getElementById("icon").value = chuoiIMG.slice(chuoiIMG.indexOf('src="') + 5, chuoiIMG.indexOf('" id="'));
+                if (chuoiIMG.indexOf('src="') == -1 && chuoiIMG.indexOf('" id="') == -1) {
+                    document.getElementById("icon").value = "";
+                }
+                };
+            }
+
+        function activeDeleteTYPE() {
+            if (confirm("Xóa mã loại sản phẩm này đồng nghĩa với tất cả sản phẩm có mã loại sản phẩm này cũng bị xóa , bạn chắc chắn xóa chứ!!")) {
+                window.location.href = "/Product/DeleteLoaiSP/" + document.getElementById("IDTYPE").value;
+
+                alert("Xóa Thành Công");
+            }
+            else
+                alert("Xóa Thất Bại");
+
+        }
+        function activeEditTYPE() {
+            document.getElementById("tenloai").readOnly = false;
+            document.getElementById("icon").readOnly = false;
+            document.getElementById("saveTYPE").disabled = false;
+            document.getElementById("activeDeleteTYPE").disabled = true;
+        }
+    </script>
+    <script>
+        var table = document.getElementById('tablePRODUCTshow');
+
+        document.getElementById("TenSPPRODUCT").readOnly = true;
+        document.getElementById("DonGiaPRODUCT").readOnly = true;
+        document.getElementById("NgayCapNhatPRODUCT").readOnly = true;
+        document.getElementById("MoTaPRODUCT").readOnly = true;
+        document.getElementById("HinhAnhPRODUCT").readOnly = true;
+        document.getElementById("SoLuongTonPRODUCT").readOnly = true;
+        document.getElementById("luotxemPRODUCT").readOnly = true;
+        document.getElementById("luotbinhchonPRODUCT").readOnly = true;
+        document.getElementById("luotbinhluanPRODUCT").readOnly = true;
+        document.getElementById("nguyenlieubanhPRODUCT").readOnly = true;
+        document.getElementById("idloaisp2").readOnly = true;
+        document.getElementById("idnsx2").readOnly = true;
+
+
+
+
+        document.getElementById("savePRODUCT").disabled = true;
+        for (var i = 1; i < table.rows.length; i++) {
+            table.rows[i].onclick = function () {
+                document.getElementById("MASPPRODUCT").value = this.cells[0].innerHTML;
+                document.getElementById("TenSPPRODUCT").value = this.cells[1].innerHTML;
+                document.getElementById("DonGiaPRODUCT").value = this.cells[2].innerHTML;
+                document.getElementById("NgayCapNhatPRODUCT").value = this.cells[3].innerHTML;
+                document.getElementById("MoTaPRODUCT").value = this.cells[4].innerHTML;
+                document.getElementById("HinhAnhPRODUCT").value = this.cells[5].innerHTML;
+                document.getElementById("SoLuongTonPRODUCT").value = this.cells[6].innerHTML;
+                document.getElementById("luotxemPRODUCT").value = this.cells[7].innerHTML;
+                document.getElementById("luotbinhchonPRODUCT").value = this.cells[8].innerHTML;
+                document.getElementById("luotbinhluanPRODUCT").value = this.cells[9].innerHTML;
+                //document.getElementById("nguyenlieubanhPRODUCT").value = this.cells[10].innerHTML;
+                document.getElementById("idloaisp2").value = this.cells[11].innerHTML;
+                document.getElementById("idnsx2").value = this.cells[12].innerHTML;
+
+                var chuoiPANEL = this.cells[10].innerHTML;
+                var chuoiIMG = this.cells[5].innerHTML;
+                var chuoiMOTA = this.cells[4].innerHTML;
+
+                document.getElementById("nguyenlieubanhPRODUCT").value = chuoiPANEL.slice(chuoiPANEL.indexOf('<div style="height:100px;width:300px;  overflow: scroll;">') + 58, chuoiPANEL.indexOf('</div>'));
+                document.getElementById("MoTaPRODUCT").value = chuoiMOTA.slice(chuoiMOTA.indexOf('<div style="height:100px;width:300px;  overflow: scroll;">') + 58, chuoiMOTA.indexOf('</div'));
+                document.getElementById("HinhAnhPRODUCT").value = chuoiIMG.slice(chuoiIMG.indexOf('<img src="') + 10, chuoiIMG.indexOf('" id="'));
+                //if (chuoiPANEL.indexOf('<div style="height:100px;width:300px;  overflow: scroll;">') == -1 && chuoiPANEL.indexOf('</div>') == -1) {
+                //    document.getElementById("nguyenlieubanhPRODUCT").value = "";
+                //    if (chuoiMOTA.indexOf('<div style="height:100px;width:300px;  overflow: scroll;">') == -1 && chuoiMOTA.indexOf('</div>') == -1) {
+                //        document.getElementById("MoTaPRODUCT").value = "";
+                //        if (chuoiIMG.indexOf('<img src="') == -1 && chuoiIMG.indexOf('" id="') == -1) {
+                //            document.getElementById("HinhAnhPRODUCT").value = "";
+            };
+        }
+        function activeDeletePRODUCT() {
+            if (confirm("bạn chắc chắn xóa chứ!!")) {
+                window.location.href = "/Product/DeleteProduct/" + document.getElementById("MASPPRODUCT").value;
+
+                alert("Xóa Thành Công");
+            }
+            else
+                alert("Xóa Thất Bại");
+
+        }
+        function activeEditPRODUCT() {
+            document.getElementById("tenloai").readOnly = false;
+            document.getElementById("icon").readOnly = false;
+            document.getElementById("savePRODUCT").disabled = false;
+            document.getElementById("activeDeletePRODUCT").disabled = true;
+
+            document.getElementById("TenSPPRODUCT").readOnly = false;
+            document.getElementById("DonGiaPRODUCT").readOnly = false;
+            document.getElementById("MoTaPRODUCT").readOnly = false;
+            document.getElementById("HinhAnhPRODUCT").readOnly = false;
+            document.getElementById("SoLuongTonPRODUCT").readOnly = false;
+            document.getElementById("luotxemPRODUCT").readOnly = false;
+            document.getElementById("luotbinhchonPRODUCT").readOnly = false;
+            document.getElementById("luotbinhluanPRODUCT").readOnly = false;
+            document.getElementById("nguyenlieubanhPRODUCT").readOnly = false;
+
+        }
+    </script>
+    <script>
+                                         //var rIndexNSX, rIndexTYPE, rIndexPROD,
+                                        //    tableNSX = document.getElementById("tableNSXshow"),
+                                        //    tableTYPE = document.getElementById("tableTYPE"),
+                                        //    tablePROD = document.getElementById("tablePROD"), ;
+                                        //for (var i = 1; i < tableNSX.rows.length; i++) {
+                                        //    tableNSX.rows[i].onclick = function () {
+                                        //        //rIndex = this.rowIndex;
+                                        //        document.getElementById("TENNSX").value = this.cells[1].innerHTML;
+                                        //        document.getElementById("THONGTIN").value = this.cells[2].innerHTML;
+                                        //        document.getElementById("LOGO").value = this.cells[3].innerHTML;
+                                        //    };
+                                        //}
+                                        //// check the empty input
+                                        //function checkEmptyInput() {
+                                        //    var isEmpty = false,
+                                        //        fname = document.getElementById("fname").value,
+                                        //        lname = document.getElementById("lname").value,
+                                        //        age = document.getElementById("age").value;
+                                        //    window.location = "http://www.vietjack.com";
+                                        //    if (fname === "") {
+                                        //        alert("First Name Connot Be Empty");
+                                        //        isEmpty = true;
+                                        //    }
+                                        //    else if (lname === "") {
+                                        //        alert("Last Name Connot Be Empty");
+                                        //        isEmpty = true;
+                                        //    }
+                                        //    else if (age === "") {
+                                        //        alert("Age Connot Be Empty");
+                                        //        isEmpty = true;
+                                        //    }
+                                        //    return isEmpty;
+                                        //}
+                                        // display selected row data into input text
+                                        //function selectedRowToInputTYPE() {
+
+                                        //    for (var i = 1; i < tableTYPE.rows.length; i++) {
+                                        //        tableTYPE.rows[i].onclick = function () {
+                                        //            // get the seected row index
+                                        //            rIndexTYPE = this.rowIndex;
+                                        //            document.getElementById("fname").value = this.cells[0].innerHTML;
+                                        //            document.getElementById("lname").value = this.cells[1].innerHTML;
+                                        //            document.getElementById("age").value = this.cells[2].innerHTML;
+
+                                        //            };
+                                        //    }
+                                        //}
+                                        //function selectedRowToInputNSX() {
+
+                                        //    for (var i = 1; i < tableNSX.rows.length; i++) {
+                                        //        tableNSX.rows[i].onclick = function () {
+                                        //            // get the seected row index
+                                        //            rIndexNSX = this.rowIndex;
+                                        //            document.getElementById("TENNSX").value = this.cells[1].innerHTML;
+                                        //            document.getElementById("THONGTIN").value = this.cells[2].innerHTML;
+                                        //            document.getElementById("LOGO").value = this.cells[3].innerHTML;
+
+                                        //            };
+                                        //    }
+                                        //}
+                                        //function selectedRowToInputPROD() {
+
+                                        //    for (var i = 1; i < tablePROD.rows.length; i++) {
+                                        //        tablePROD.rows[i].onclick = function () {
+                                        //            // get the seected row index
+                                        //            rIndex = this.rowIndex;
+                                        //            document.getElementById("fname").value = this.cells[0].innerHTML;
+                                        //            document.getElementById("lname").value = this.cells[1].innerHTML;
+                                        //            document.getElementById("age").value = this.cells[2].innerHTML;
+                                        //            document.getElementById("btnRedirect").
+                                        //            };
+                                        //    }
+                                        //}
+                                        //selectedRowToInputTYPE();
+                                        //selectedRowToInputNSX();
+                                        //selectedRowToInputPROD();
+    </script>
+</body>
+
+</html>

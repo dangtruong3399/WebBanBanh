@@ -1,0 +1,11 @@
+﻿@*Dùng viewbag để thể hiển tổng số lượng sản phẩm có trong giỏ hàng và tổng tiền*@
+
+<ul class="h_search list_style" id="divGioHang">
+    <li @*class="shop_cart"*@>
+        <a href="@Url.Action("XemGioHang", "GioHang")">
+            <i class="lnr lnr-cart"></i>Giỏ Hàng @ViewBag.TongTien$ (<span>@ViewBag.TongSoLuong</span> sp)
+        </a>
+    </li>
+    @*<li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>*@
+
+</ul>

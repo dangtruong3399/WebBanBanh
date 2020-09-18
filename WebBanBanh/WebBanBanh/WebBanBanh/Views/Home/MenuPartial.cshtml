@@ -1,0 +1,88 @@
+﻿@using WebBanBanh.Models
+@model IEnumerable<SANPHAM>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav justify-content-end">
+        @* <li class="dropdown submenu active">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Trang chủ</a>
+                <ul class="dropdown-menu">
+
+                    <li><a href="@Url.Action("Index", "Home")"></a></li>
+
+                </ul>
+            </li>*@
+        <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+        <li><a href="#">Giới thiệu</a></li>
+        @* <li><a href="menu.html">Menu</a></li>*@
+        @*<li class="dropdown submenu">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About Us</a>
+                <ul class="dropdown-menu">
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-team.html">Our Chefs</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                </ul>
+            </li>*@
+        @foreach (var groupItem in Model.GroupBy(n => n.LOAISANPHAM))
+        {
+            if (groupItem.Key != null)
+            {
+
+
+                <li class="dropdown submenu">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@groupItem.Key.TENLOAI</a>
+                    <ul class="dropdown-menu">
+                        @foreach (var item in groupItem.GroupBy(n => n.NHASANXUAT))
+                        {
+                            if (item.Key != null)
+                            {
+                                <li><a href="@Url.Action("SanPham", "SanPham", new { @MaLoaiSP = groupItem.Key.MALOAISP, @MaNSX = item.Key.MANSX })">@item.Key.TENNSX</a></li>
+                            }
+                        }
+
+                    </ul>
+                </li>
+
+            }
+        }
+        <li><a href="contact.html">Liên hệ</a></li>
+
+        <li class="dropdown submenu">
+            @*            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Thương Hiệu</a>*@
+            <ul class="dropdown-menu">
+                <li class="dropdown submenu">
+                    @foreach (var groupItem in Model.GroupBy(n => n.LOAISANPHAM))
+                    {
+                        if (groupItem.Key != null)
+                        {
+
+
+
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@groupItem.Key.TENLOAI</a>
+                            <ul class="dropdown-menu">
+                                @foreach (var item in groupItem.GroupBy(n => n.NHASANXUAT))
+                                {
+
+
+                                    <li><a href="@Url.Action("SanPham", "SanPham", new { @MaLoaiSP = groupItem.Key.MALOAISP, @MaNSX = item.Key.MANSX })">@item.Key.TENNSX">@item.Key.TENNSX</a></li>
+                                }
+                            </ul>
+
+
+
+                        }
+                    }
+                </li>
+            </ul>
+        </li>
+        @*<li class="dropdown submenu">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+                <ul class="dropdown-menu">
+                    <li><a href="shop.html">Main shop</a></li>
+                    <li><a href="product-details.html">Product Details</a></li>
+                    <li><a href="cart.html">Cart Page</a></li>
+                    <li><a href="checkout.html">Checkout Page</a></li>
+                </ul>
+            </li>*@
+        @*        <li><a href="contact.html">Liên hệ</a></li>*@
+    </ul>
+</div>

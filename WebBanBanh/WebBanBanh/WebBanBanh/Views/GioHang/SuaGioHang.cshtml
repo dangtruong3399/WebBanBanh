@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "SuaGioHang";
+}
+
+<h2>SuaGioHang</h2>
+@using WebBanBanh.Models
+@model ItemGioHang
+
+@{
+    ViewBag.Title = "SuaGioHang";
+    Layout = "~/Views/Layout/GioHangLayout.cshtml";
+}
+
+@{
+    List<ItemGioHang> lstGioHang = ViewBag.GioHang as List<ItemGioHang>;
+}
+
+<table class="table">
+    <tr>
+        <td>Mã SP</td>
+        <td>Tên SP</td>
+        <td>Hình ảnh</td>
+        <td>Số lượng</td>
+        <td>Đơn giá</td>
+        <td>Thành tiền</td>
+    </tr>
+    @foreach (var item in lstGioHang)
+    {
+        //Sản phẩm có mã sản phẩm  được chỉnh gửi từ tham số bên trang xem giỏ hàng
+        if (Model.MaSP == item.MaSP)
+        {
+            using (Html.BeginForm("CapNhatGioHang", "GioHang"))
+            {
+                <tr>
+                    <td>@item.MaSP @Html.Hidden("MaSP", item.MaSP)</td>
+                    <td>@item.TenSP</td>
+                    <td><img src="@Url.Content("~/Content/HinhAnhSP/" + item.HinhAnh)" width="150" height="150" /></td>
+                    <td>
+                        @Html.TextBox("SoLuong", item.SoLuong, new { @class = "SoLuongThayDoi" })
+                    <p id="TB_SoLuongThayDoi"></p>
+                </td>
+                <td>@item.DonGia$</td>
+                <td>@item.ThanhTien$</td>
+                <td>
+                    <input type="submit" value="Cập nhật" id="btnCapNhatGH" />
+                    @Html.ActionLink("Xóa", "XoaGioHang", new { @MaSP = item.MaSP })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td>@item.MaSP</td>
+            <td>@item.TenSP</td>
+            <td><img src="@Url.Content("~/Content/HinhAnhSP/"+item.HinhAnh)" width="150" height="150" /></td>
+            <td>@item.SoLuong</td>
+            <td>@item.DonGia$</td>
+            <td>@item.ThanhTien$</td>
+            <td>
+                @Html.ActionLink("Sửa", "SuaGioHang", new { @MaSP = item.MaSP })
+            @Html.ActionLink("Xóa", "XoaGioHang", new { @MaSP = item.MaSP })
+        </td>
+    </tr>
+}
+}
+</table>
+
+@*Kiểm tra số lượng thay đổi*@
+<script>
+    $("#btnCapNhatGH").click(function () {
+        //kiểm tra số lượng không phải là số hoặc nhỏ hơn 0
+        var SoLuong = $(".SoLuongThayDoi").val();
+        if (isNaN(SoLuong) == true || SoLuong < 0)
+        {
+            $("#TB_SoLuongThayDoi").text("Số lượng không hợp lệ !");
+            return false;
+        }
+
+    });
+</script>

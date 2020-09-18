@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "XemGioHang";
+}
+
+<h2>XemGioHang</h2>
+@using WebBanBanh.Models
+
+@model List<ItemGioHang>
+
+
+@{
+    ViewBag.Title = "XemGioHang";
+    Layout = "~/Views/Layout/GioHangLayout.cshtml";
+}
+
+@if (Model == null || Model.Count == 0)
+{
+    <h1 style="color: #000;">Giỏ hàng rỗng</h1>
+}
+else
+{
+
+    <table class="table">
+        <tr>
+            <td>Mã SP</td>
+            <td>Tên SP</td>
+            <td>Hình ảnh</td>
+            <td>Số lượng</td>
+            <td>Đơn giá</td>
+            <td>Thành tiền</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaSP</td>
+                <td>@item.TenSP</td>
+                <td>
+                    <img src="@Url.Content("~/Content/HinhAnhSP/" + item.HinhAnh)" width="150" height="150" />
+                </td>
+                <td>@item.SoLuong</td>
+                <td>@item.DonGia$</td>
+                <td>@item.ThanhTien$</td>
+                <td>
+                    @Html.ActionLink("Sửa", "SuaGioHang", new { @MaSP = item.MaSP })
+                @Html.ActionLink("Xóa", "XoaGioHang", new { @MaSP = item.MaSP })
+            </td>
+        </tr>
+    }
+    </table>
+    <div class="divDatHang" style="text-align: right;">
+        @using (Html.BeginForm("DatHang", "GioHang"))
+        {
+            <input type="submit" value="Đặt hàng" class="btn btn-danger" id="btnDatHang" />
+            @*@Html.ActionLink("Mua tiếp", "Index", "Home", new { @class = "btn btn-success" });*@
+            <a href="@Url.Action("Index", "Home")" class="btn btn-success">Mua tiếp</a>
+        }
+    </div>
+
+    //using (Html.BeginForm("DatHang", "GioHang"))
+    //{
+    //    if (Session["TAIKHOAN"] == null)
+    //    {
+
+
+    @*Thiết kế form lưu thông tin khách hàng đối với vãng lai (Khách chưa có tài khoản)*@
+    @*<div class="ThongTinMuaHang">
+            <table align="center" class="table">
+                <tr>
+                    <td align="center" colspan="2"><b>Thông tin khách hàng</b></td>
+
+                </tr>
+                <tr>
+                    <td>Họ tên</td>
+                    <td>
+                        @Html.TextBox("TENKH")
+                        <p style="color: red;" id="TB_TenKH"></p>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Địa chỉ
+                    </td>
+                    <td>
+                        @Html.TextArea("DIACHI")
+                        <p style="color: red;" id="TB_DiaChi"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        @Html.TextBox("EMAIL")
+                        <p style="color: red;" id="TB_Email"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Điện thoại</td>
+                    <td>@Html.TextBox("SODIENTHOAI")</td>
+                </tr>
+
+
+            </table>
+
+        </div>
+
+
+                }
+
+            }*@
+
+
+}
+
+<style>
+    input[type="submit"] {
+        padding: 7px;
+        margin: 0;
+    }
+</style>
+
+
+@*Kiểm tra validation thông qua jquery*@
+
+@*<script>
+        $("#btnDatHang").click(function () {
+            var loi = 0;
+            if ($("#TENKH").val() == "") {
+                $("#TB_TenKH").text("Tên khách hàng không được bỏ chống ");
+                loi++;
+            }
+            else {
+
+                $("#TB_TenKH").text("");
+            }
+
+            if ($("#DIACHI").val() == "") {
+                $("#TB_DiaChi").text("Tên địa chỉ không được bỏ chống ");
+                loi++;
+            }
+            else {
+
+                $("#TB_DiaChi").text("");
+            }
+
+            if (loi != 0) {
+                //ngăn sự kiện submit đến sever
+                return false;
+            }
+
+        });
+    </script>*@

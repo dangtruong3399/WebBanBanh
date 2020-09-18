@@ -1,0 +1,205 @@
+﻿@using WebBanBanh.Models;
+@{
+    /**/
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Matrix Admin</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/">
+    <link rel="stylesheet" href="~/sourceAdmin/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/sourceAdmin/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="~/sourceAdmin/css/fullcalendar.css" />
+    <link rel="stylesheet" href="~/sourceAdmin/css/matrix-style.css" />
+    <link rel="stylesheet" href="~/sourceAdmin/css/matrix-media.css" />
+    <link href="~/sourceAdmin/fontawesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/sourceAdmin/css/fontgg.css" rel="stylesheet" />
+</head>
+<body>
+    <!--Header-part-->
+    <div id="header">
+        <h1><a href="dashboard.html">Matrix Admin</a></h1>
+    </div>
+    <!--close-Header-part-->
+    <!--top-Header-menu-->
+    <div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav">
+            <li class="dropdown" id="profile-messages">
+                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome User</span><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="Admin/IndexProfile"><i class="icon-user"></i> My Profile</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="Admin/postLogDangNhap"><i class="icon-key"></i> Log Out</a></li>
+                </ul>
+
+            </li>
+            <li><a href="Admin/postLogDangNhap"><i class="icon-key"></i> Log Out</a></li>
+        </ul>
+    </div>
+    <!--close-top-Header-menu-->
+    <!--sidebar-menu-->
+    <div id="sidebar">
+        <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+        <ul>
+            <li class="active"><a href="Admin/Index"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+            <li> <a href="Admin/IndexChart"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
+            <li class=" submenu">
+                <a href="#"><i class="icon icon-th"></i> <span>Tables</span></a>
+                <ul>
+                    <li><a href="Product/Index">Product Table</a></li>
+                    <li><a href="KhachHang/Index">User Customer Table</a></li>
+                    <li><a href="DonDatHang/Index">Order  Table</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="#"><i class="icon icon-fullscreen"></i>FORM</a>
+                <ul>
+                    <li><a href="EditAbout/Index">EDIT FORM ABOUT</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="admin/home/dashboard"><i class="icon icon-th-list"></i></a>
+                <ul>
+                    <li><a href="admin/home/dashboard"></a></li>
+                </ul>
+            </li>
+            <li><a href="admin/home/dashboard"><i class="icon icon-tint"></i></a></li>
+            <li><a href="admin/home/dashboard"><i class="icon icon-pencil"></i> <span></span></a></li>
+            <li class="submenu">
+                <a href="admin/home/dashboard"><i class="icon icon-file"></i> </a>
+                <ul>
+                    <li><a href="admin/home/dashboard"></a></li>
+                    <li><a href="admin/home/dashboard"></a></li>
+                    <li><a href="admin/home/dashboard"></a></li>
+                    <li><a href="admin/home/dashboard"></a></li>
+                    <li><a href="admin/home/dashboard"></a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="admin/home/dashboard"><i class="icon icon-info-sign"></i> </a>
+                <ul>
+                    <li><a href="admin/home/dashboard">Error 403</a></li>
+                    <li><a href="admin/home/dashboard">Error 404</a></li>
+                    <li><a href="admin/home/dashboard">Error 405</a></li>
+                    <li><a href="admin/home/dashboard">Error 500</a></li>
+                </ul>
+            </li>
+            <li class="content">
+                <span>Monthly Bandwidth Transfer</span>
+                <div class="progress progress-mini progress-danger active progress-striped">
+                    <div style="width: 77%;" class="bar"></div>
+                </div>
+                <span class="percent">77%</span>
+                <div class="stat">21419.94 / 14000 MB</div>
+            </li>
+            <li class="content">
+                <span>Disk Space Usage</span>
+                <div class="progress progress-mini active progress-striped">
+                    <div style="width: 87%;" class="bar"></div>
+                </div>
+                <span class="percent">87%</span>
+                <div class="stat">604.44 / 4000 MB</div>
+            </li>
+        </ul>
+    </div>
+    <!--sidebar-menu-->
+    <!--main-container-part-->
+    <div id="content">
+        <!--breadcrumbs-->
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+        </div>
+        <!--End-breadcrumbs-->
+        <!--Action boxes-->
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>My Profile</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <div class="control-group">
+                                <label class="control-label text-center">Tên Admin : @ViewBag.tenadmin</label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label text-center">Tên Tài Khoản : @ViewBag.tentk</label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label text-center">Mật Khẩu :  ***********</label>
+                            </div>
+                            <div class="control-group">
+                                <h1 class="text-center">@Html.ActionLink("Edit", "AdminProfile", "Admin", new { @tk = @ViewBag.tentk }, null)</h1>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end-main-container-part-->
+    <!--Footer-part-->
+
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
+    </div>
+
+    <!--end-Footer-part-->
+
+    <script src="~/sourceAdmin/js/excanvas.min.js"></script>
+    <script src="~/sourceAdmin/js/jquery.min.js"></script>
+    <script src="~/sourceAdmin/js/jquery.ui.custom.js"></script>
+    <script src="~/sourceAdmin/js/bootstrap.min.js"></script>
+    <script src="~/sourceAdmin/js/jquery.flot.min.js"></script>
+    <script src="~/sourceAdmin/js/jquery.flot.resize.min.js"></script>
+    <script src="~/sourceAdmin/js/jquery.peity.min.js"></script>
+    <script src="~/sourceAdmin/js/fullcalendar.min.js"></script>
+    <script src="~/sourceAdmin/js/matrix.js"></script>
+    <script src="~/sourceAdmin/js/matrix.dashboard.js"></script>
+    <script src="~/sourceAdmin/js/jquery.gritter.min.js"></script>
+    <script src="~/sourceAdmin/js/matrix.interface.js"></script>
+    <script src="~/sourceAdmin/js/matrix.chat.js"></script>
+    <script src="~/sourceAdmin/js/jquery.validate.js"></script>
+    <script src="~/sourceAdmin/js/matrix.form_validation.js"></script>
+    <script src="~/sourceAdmin/js/jquery.wizard.js"></script>
+    <script src="~/sourceAdmin/js/jquery.uniform.js"></script>
+    <script src="~/sourceAdmin/js/select2.min.js"></script>
+    <script src="~/sourceAdmin/js/matrix.popover.js"></script>
+    <script src="~/sourceAdmin/js/jquery.dataTables.min.js"></script>
+    <script src="~/sourceAdmin/js/matrix.tables.js"></script>
+
+    <script type="text/javascript">
+        // This function is called from the pop-up menus to transfer to
+        // a different page. Ignore if the value returned is a null string:
+        function goPage(newURL) {
+
+            // if url is empty, skip the menu dividers and reset the menu selection to default
+            if (newURL != "") {
+
+                // if url is "-", it is this page -- reset the menu:
+                if (newURL == "-") {
+                    resetMenu();
+                }
+                // else, send page to designated URL
+                else {
+                    document.location.href = newURL;
+                }
+            }
+        }
+
+        // resets the menu selection upon entry to this page:
+        function resetMenu() {
+            document.gomenu.selector.selectedIndex = 2;
+        }
+    </script>
+</body>
+</html>

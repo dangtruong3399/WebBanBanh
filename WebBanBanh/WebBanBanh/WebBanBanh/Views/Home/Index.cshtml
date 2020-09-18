@@ -1,0 +1,72 @@
+﻿@using WebBanBanh.Models;
+@model IEnumerable<SANPHAM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    IEnumerable<SANPHAM> lstBKM = ViewBag.ListBKM as IEnumerable<SANPHAM>;
+    IEnumerable<SANPHAM> lstBQM = ViewBag.ListBQM as IEnumerable<SANPHAM>;
+    IEnumerable<SANPHAM> lstBMM = ViewBag.ListBMM as IEnumerable<SANPHAM>;
+
+}
+
+@*Bước 1: chúng ta sẽ tách code và lồng PartialView*@
+@*Bước 2: Gán dữ liệu từ controler thông qua viewBag vào partialview*@
+
+
+@*Bánh kem*@
+<div class="col-12">
+    <!--================Welcome Area =================-->
+    <section class="welcome_bakery_area cake_feature_main p_100">
+        <div class="container">
+            <div class="main_title">
+                <h2>Bánh Kem Mới Nhất</h2>
+                <h5>Seldolor sit amet consect etur</h5>
+            </div>
+            <div class="cake_feature_row row">
+
+                @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstBKM);
+
+            </div>
+        </div>
+    </section>
+</div>
+
+@*Bánh Quy*@
+<div class="col-12">
+    <!--================Welcome Area =================-->
+    <section class="welcome_bakery_area cake_feature_main p_100">
+        <div class="container">
+            <div class="main_title">
+                <h2>Bánh Quy Mới Nhất</h2>
+                <h5>Seldolor sit amet consect etur</h5>
+            </div>
+            <div class="cake_feature_row row">
+
+                @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstBQM);
+
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@*Bánh Mỳ*@
+<div class="col-12">
+    <!--================Welcome Area =================-->
+    <section class="welcome_bakery_area cake_feature_main p_100">
+        <div class="container">
+            <div class="main_title">
+                <h2>Bánh Mỳ Mới Nhất</h2>
+                <h5>Seldolor sit amet consect etur</h5>
+            </div>
+            <div class="cake_feature_row row">
+
+                @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstBMM);
+
+            </div>
+        </div>
+    </section>
+</div>
